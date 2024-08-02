@@ -240,32 +240,39 @@
     function first() {
       let firstName = document.getElementById("text").value;
 
+      // Regular expression to match alphabetic characters and periods only
+      const namePattern = /^[A-Za-z.]+$/;
+      // console.log(namePattern.test(firstName))
 
-      if (firstName == "") {
-        document.getElementById("first").innerHTML = " Enter your first name."
-
-      }
-      else if (!isNaN(firstName)) {
-        document.getElementById("first").innerHTML = "Name should be in text";
-      }
-      else {
+      if (firstName === "") {
+        document.getElementById("first").innerHTML = "Enter your first name.";
+      } else if (!namePattern.test(firstName)) {
+        document.getElementById("first").innerHTML = "Name should only contain letters and periods.";
+      } else {
         document.getElementById("first").innerHTML = "";
         localStorage.setItem("firstNames", firstName);
       }
 
       return firstName;
-    };
+    }
+
 
     // second name 
     function second() {
       let lastName = document.getElementById("Last Name").value;
 
+      const namesPattern = /^[A-Za-z.]+$/;
+
       if (lastName == "") {
         document.getElementById("last").innerHTML = " Enter your last name."
 
       }
+
       else if (!isNaN(lastName)) {
         document.getElementById("last").innerHTML = "Name should be in text";
+      }
+      else if (!namesPattern.test(lastName)) {
+        document.getElementById("last").innerHTML = "Name should only contain letters and periods.";
       }
       else {
         document.getElementById("last").innerHTML = "";
@@ -333,13 +340,18 @@
 
     //mobile
     function mobileNumber() {
-      let phoneNumber = document.getElementById("number").value;
+      let phoneNumber = Number(document.getElementById("number").value);
 
-      // let message = "";
+      // console.log(typeof phoneNumber);
+      // console.log(phoneNumber);
+      // // let message = "";
 
-      if (phoneNumber === "") {
+      if (phoneNumber === 0) {
         document.getElementById("cell").innerHTML = " Enter your phone number.";
 
+      }
+      else if (isNaN(phoneNumber)) {
+        document.getElementById("cell").innerHTML = " Charactor must be in number";
       } else {
         document.getElementById("cell").innerHTML = " ";
         localStorage.setItem("phones", phoneNumber);
@@ -521,8 +533,8 @@
       let college = document.getElementById("college").value;
       let address = document.getElementById("comment").value;
       let imgs = document.getElementById("imageInput").files[0];
-
-
+      const namesPattern = /^[A-Za-z.]+$/;
+      const namePattern = /^[A-Za-z.]+$/;
       const input = document.getElementById('imageInput');
       const file = input.files[0];
       const reader = new FileReader();
@@ -538,7 +550,7 @@
 
 
 
-      if (firstName == "" || lastName == "" || emails == "" || x == "" || y == "" || phoneNumber === "" || dateOfBirth == "" || college == "" || address == "" || !imgs) {
+      if (firstName == "" || !namePattern.test(firstName) || !namesPattern.test(lastName) || lastName == "" || emails == "" || x == "" || y == "" || phoneNumber == 0 || dateOfBirth == "" || college == "" || address == "" || !imgs) {
         alert("please fill the form");
         document.getElementById("result").innerHTML = "";
       }
